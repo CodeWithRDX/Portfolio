@@ -2,7 +2,7 @@ import { ExternalLink, Github } from 'lucide-react';
 import './Projects.css';
 
 import natlefImg from '../assets/NatLef.png';
-import mentorImg from '../assets/mentoConnect.png';
+import mentorImg from '../assets/MentoConnect.png';
 import quizImg from '../assets/GUI.png';
 import mealImg from '../assets/GUI.png';
 
