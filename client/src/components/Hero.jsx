@@ -1,5 +1,5 @@
 import { ArrowRight, Download, Github, Linkedin, Twitter } from 'lucide-react';
-import img from '../assets/Img.jpg';
+import img from '../assets/Img.JPG';
 import './Hero.css';
 
 const Hero = () => {
