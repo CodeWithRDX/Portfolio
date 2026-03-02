@@ -1,0 +1,241 @@
+.codolio-section {
+    position: relative;
+    background-color: var(--bg-secondary);
+}
+
+.opacity-0 {
+    opacity: 0;
+}
+
+/* Split Layout */
+.codolio-layout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5rem;
+    margin-top: 3rem;
+}
+
+/* Left — Info */
+.codolio-info {
+    flex: 1;
+    max-width: 420px;
+}
+
+.codolio-heading {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+}
+
+.codolio-desc {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+}
+
+.codolio-desc strong {
+    color: var(--text-primary);
+}
+
+.codolio-highlights {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.highlight-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.highlight-icon {
+    flex-shrink: 0;
+}
+
+.highlight-icon.gold {
+    color: #f59e0b;
+}
+
+.highlight-icon.red {
+    color: #ef4444;
+}
+
+.highlight-value {
+    display: block;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.highlight-label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+/* Right — Flippable Card */
+.flip-card-container {
+    perspective: 1000px;
+    width: 340px;
+    height: 420px;
+    flex-shrink: 0;
+}
+
+.flip-card {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+}
+
+.flip-card.flipped {
+    transform: rotateY(180deg);
+}
+
+.flip-card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 24px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
+
+.flip-card-back {
+    transform: rotateY(180deg);
+}
+
+/* Card header */
+.flip-card-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.flip-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.codolio-gradient {
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+.leetcode-gradient {
+    background: linear-gradient(135deg, #f59e0b, #ef4444);
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+}
+
+.flip-avatar-icon {
+    color: #fff;
+}
+
+.flip-platform {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.flip-username {
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+/* Stats row */
+.flip-stats {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    width: 100%;
+    justify-content: center;
+}
+
+.flip-stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.flip-stat-value {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.flip-stat-label {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.flip-stat-divider {
+    width: 1px;
+    height: 40px;
+    background-color: var(--border-color);
+}
+
+/* Buttons */
+.flip-visit-btn {
+    width: 100%;
+    font-size: 0.95rem;
+}
+
+.leetcode-btn {
+    background: linear-gradient(135deg, #f59e0b, #ef4444);
+}
+
+.leetcode-btn:hover {
+    background: linear-gradient(135deg, #d97706, #dc2626);
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+/* Flip hint */
+.flip-hint {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    opacity: 0.6;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .codolio-layout {
+        flex-direction: column;
+        gap: 3rem;
+    }
+
+    .codolio-info {
+        text-align: center;
+        max-width: 100%;
+    }
+
+    .codolio-highlights {
+        align-items: center;
+    }
+
+    .flip-card-container {
+        width: 300px;
+        height: 400px;
+    }
+}
