@@ -1,5 +1,5 @@
-const connectDB = require('../lib/db');
-const Contact = require('../models/Contact');
+const connectDB = require('./lib/db');
+const Contact = require('./models/Contact');
 
 module.exports = async function handler(req, res) {
     await connectDB();
