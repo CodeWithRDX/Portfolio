@@ -29,7 +29,7 @@
 
 .cert-card-preview {
     width: 100%;
-    height: 180px;
+    height: 200px;
     border-radius: 14px;
     overflow: hidden;
     background-color: var(--bg-tertiary);
@@ -37,11 +37,26 @@
     border: 1px solid var(--border-color);
 }
 
-.cert-preview-iframe {
+@keyframes certZoomPulse {
+    0%   { transform: scale(1.00); }
+    50%  { transform: scale(1.06); }
+    100% { transform: scale(1.00); }
+}
+
+.cert-preview-img {
     width: 100%;
     height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
     border: none;
-    pointer-events: none; /* Prevent scrolling inside the small card preview */
+    animation: certZoomPulse 4s ease-in-out infinite;
+    animation-play-state: paused; /* still by default */
+}
+
+/* Play zoom only on card hover */
+.cert-card:hover .cert-preview-img {
+    animation-play-state: running;
 }
 
 .cert-card-icon-placeholder {

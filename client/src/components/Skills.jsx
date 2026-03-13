@@ -49,6 +49,18 @@ const Skills = () => {
     const [isVisible, setIsVisible] = useState(false);
     const sectionRef = useRef(null);
 
+    // Scatter transform mirrors the About page animation:
+    // items start randomly displaced and fly into position on scroll-in
+    const getScatterTransform = (index) => {
+        if (isVisible) return 'translate(0, 0) scale(1) rotate(0deg)';
+        const angle = (index * 137.5) % 360;
+        const distance = 120 + (index % 5) * 40;
+        const x = Math.cos((angle * Math.PI) / 180) * distance;
+        const y = Math.sin((angle * Math.PI) / 180) * distance;
+        const rotation = ((index % 7) - 3) * 15;
+        return `translate(${x}px, ${y}px) scale(0.5) rotate(${rotation}deg)`;
+    };
+
     useEffect(() => {
         const observer = new IntersectionObserver(
             (entries) => {
@@ -72,32 +84,42 @@ const Skills = () => {
             <div className="container">
                 <h2 className="section-title"><span>Technical Expertise</span></h2>
 
-                <div className="skills-container-detailed">
-                    {skillsData.map((skillGroup, groupIndex) => (
-                        <div
-                            key={skillGroup.category}
-                            className={`skill-card-detailed glass-panel ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}
-                            style={{ animationDelay: isVisible ? `${0.15 * (groupIndex + 1)}s` : '0s' }}
-                        >
-                            <h3 className="skill-category-title gradient-text">{skillGroup.category}</h3>
+                <div className={`skills-container-detailed ${isVisible ? 'skills-in-view' : ''}`}>
+                    {(() => {
+                        let globalItemIndex = 0;
+                        return skillsData.map((skillGroup, groupIndex) => (
+                            <div
+                                key={skillGroup.category}
+                                className={`skill-card-detailed glass-panel ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}
+                                style={{ animationDelay: isVisible ? `${0.15 * (groupIndex + 1)}s` : '0s' }}
+                            >
+                                <h3 className="skill-category-title gradient-text">{skillGroup.category}</h3>
 
-                            <ul className="skills-detailed-list">
-                                {skillGroup.items.map((skill, index) => (
-                                    <li
-                                        key={skill.name}
-                                        className={`skill-row ${isVisible ? 'animate-slide-in-right' : 'opacity-0'}`}
-                                        style={{ animationDelay: isVisible ? `${0.15 * (groupIndex + 1) + 0.08 * index}s` : '0s' }}
-                                    >
-                                        <div className="skill-info">
-                                            <CheckCircle2 size={18} className={`skill-icon ${skill.highlight ? 'icon-highlight' : ''}`} />
-                                            <span className="skill-name">{skill.name}</span>
-                                        </div>
-                                        <span className="skill-level">{skill.level}</span>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    ))}
+                                <ul className="skills-detailed-list">
+                                    {skillGroup.items.map((skill, index) => {
+                                        const itemIdx = globalItemIndex++;
+                                        return (
+                                            <li
+                                                key={skill.name}
+                                                className="skill-row"
+                                                style={{
+                                                    transform: getScatterTransform(itemIdx),
+                                                    opacity: isVisible ? 1 : 0,
+                                                    transition: `all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) ${0.15 * (groupIndex + 1) + 0.07 * index}s`,
+                                                }}
+                                            >
+                                                <div className="skill-info">
+                                                    <CheckCircle2 size={18} className={`skill-icon ${skill.highlight ? 'icon-highlight' : ''}`} />
+                                                    <span className="skill-name">{skill.name}</span>
+                                                </div>
+                                                <span className="skill-level">{skill.level}</span>
+                                            </li>
+                                        );
+                                    })}
+                                </ul>
+                            </div>
+                        ));
+                    })()}
                 </div>
             </div>
         </section>

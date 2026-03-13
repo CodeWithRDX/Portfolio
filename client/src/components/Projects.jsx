@@ -8,6 +8,9 @@ import natlefImg from '../assets/NatLef.png';
 import mentorImg from '../assets/MentoConnect.png';
 import quizImg from '../assets/GUI.png';
 import mealImg from '../assets/meal.png';
+import Rock from '../assets/Rock.png';
+import Tic from '../assets/Tic.png';
+
 
 export const projectsData = [
     {
@@ -63,16 +66,29 @@ export const projectsData = [
     },
     {
         id: 5,
-        title: 'Weather App',
-        description: 'A responsive weather dashboard showing current conditions and forecasts using an external Weather API.',
-        image: 'https://images.unsplash.com/photo-1504608524841-42ce6c20a016?q=80&w=2000&auto=format&fit=crop',
-        tags: ['HTML', 'CSS', 'JavaScript', 'API'],
-        github: '#',
-        live: '#',
+        title: 'Rock Paper Scissor Game',
+        description: 'A simple and interactive Rock Paper Scissors game built using HTML, CSS, and JavaScript. Challenge the computer and keep track of scores!',
+        image: Rock,
+        tags: ['HTML', 'CSS', 'Tailwind','JavaScript'],
+        github: 'https://github.com/CodeWithRDX/ROCK-PAPER-SCISSORS.git',
+        live: 'https://codewithrdx.github.io/ROCK-PAPER-SCISSORS/',
         category: 'Mini Projects',
-        problemStatement: 'Need a quick way to check weather without bloated apps.',
-        detailedExplanation: 'Built a lightweight weather dashboard using vanilla JavaScript to fetch real-time data from OpenWeatherMap API.',
-        howSolved: 'Used Fetch API for asynchronous data fetching and CSS Grid for layout.',
+        problemStatement: 'Wanted to build a classic, interactive browser game to practice DOM manipulation, event listeners, and state management in vanilla JavaScript.',
+        detailedExplanation: 'Developed a fully functional Rock Paper Scissors game where the user plays against a randomly generating computer opponent. The UI is designed to be responsive and engaging, featuring immediate visual feedback on win, loss, or tie outcomes, and real-time score tracking.',
+        howSolved: 'Implemented core game logic using JavaScript control flow and Math.random() for the computer\'s choice. Managed scoring and round states, and styled the interactive elements using Tailwind CSS for rapid and modern layout design.',
+    },
+    {
+        id: 6,
+        title: 'Tic Tac Toe Game',
+        description: 'A simple, fun, and responsive Tic Tac Toe game built with HTML, CSS, and JavaScript.',
+        image: Tic,
+        tags: ['HTML', 'CSS', 'Tailwind','JavaScript'],
+        github: 'https://github.com/CodeWithRDX/Tic-Tac-Toe.git',
+        live: 'https://codewithrdx.github.io/Tic-Tac-Toe/',
+        category: 'Mini Projects',
+        problemStatement: 'Needed a challenging logic puzzle project to master 2D array state tracking, turn-based mechanics, and win-condition checking algorithms.',
+        detailedExplanation: 'Built a classic Tic Tac Toe game played on a 3x3 grid. It features interactive cells that listen for turn-based clicks, dynamically updating the UI with X or O. It seamlessly detects 3-in-a-row winning combinations (horizontally, vertically, and diagonally), and recognizes draw states to reset the game.',
+        howSolved: 'Utilized JavaScript arrays to track the entire board state. Implemented a robust winning logic check using predefined array indices combinations. The user interface was styled efficiently using Tailwind CSS to offer a clean, centered, and fully responsive playing board.',
     }
 ];
 
