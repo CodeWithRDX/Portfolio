@@ -51,7 +51,7 @@ function App() {
             <Projects />
             <Skills />
             <CodolioProfile />
-            <Certificates />
+            <Certificates homepageMode={true} />
             <Education />
             <Contact />
           </main>
