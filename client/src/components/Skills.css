@@ -11,7 +11,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 2.5rem;
-    margin-top: 3rem;
+    margin-top: 1.5rem;
 }
 
 .skill-card-detailed {

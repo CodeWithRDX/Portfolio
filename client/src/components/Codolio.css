@@ -7,235 +7,270 @@
     opacity: 0;
 }
 
-/* Split Layout */
-.codolio-layout {
+/* Dashboard Layout */
+.coding-dashboard {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5rem;
-    margin-top: 3rem;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 1.5rem;
 }
 
-/* Left — Info */
-.codolio-info {
-    flex: 1;
-    max-width: 420px;
+.dashboard-top {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: stretch;
 }
 
-.codolio-heading {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    line-height: 1.3;
-}
-
-.codolio-desc {
-    color: var(--text-secondary);
-    font-size: 1.1rem;
-    line-height: 1.8;
-    margin-bottom: 2.5rem;
-}
-
-.codolio-desc strong {
+/* Chart Card Titles */
+.chart-card-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
     color: var(--text-primary);
 }
 
-.codolio-highlights {
+/* === Interactive Area Chart === */
+.interactive-chart-card {
+    padding: 2rem;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    border-radius: 20px;
+    height: 100%;
 }
 
-.highlight-item {
+.recharts-wrapper {
+    width: 100%;
+    min-height: 250px;
+}
+
+/* Recharts Tooltip Customization */
+.chart-tooltip {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+/* === Stats Summary Cards === */
+.stats-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.stat-card {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1.25rem 1.5rem;
+    border-radius: 16px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    flex: 1;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.stat-card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.stat-card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+}
+
+.stat-card-value {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.2;
+}
+
+.stat-card-label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+}
+
+/* === Bar Chart === */
+.bar-chart-card {
+    padding: 2rem;
+    border-radius: 20px;
+}
+
+.bar-chart {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.bar-row {
     display: flex;
     align-items: center;
     gap: 1rem;
 }
 
-.highlight-icon {
+.bar-label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    width: 65px;
     flex-shrink: 0;
 }
 
-.highlight-icon.gold {
-    color: #f59e0b;
+.bar-track {
+    flex: 1;
+    height: 14px;
+    background-color: var(--bg-tertiary);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
 }
 
-.highlight-icon.red {
-    color: #ef4444;
+.bar-fill {
+    height: 100%;
+    border-radius: 10px;
+    width: 0%;
+    transition: width 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
 }
 
-.highlight-value {
-    display: block;
+.bar-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 6px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 0 10px 10px 0;
+}
+
+.bar-value {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--text-primary);
+    width: 40px;
+    text-align: right;
+    flex-shrink: 0;
+}
+
+/* === Platform Cards === */
+.platform-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+}
+
+.platform-card {
+    padding: 2rem;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.platform-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
+}
+
+.platform-card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.platform-avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.platform-name {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.platform-username {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.platform-stats-row {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1rem 0;
+    border-top: 1px solid var(--glass-border);
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.platform-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+.platform-stat-value {
     font-family: 'Outfit', sans-serif;
     font-size: 1.4rem;
     font-weight: 700;
     color: var(--text-primary);
 }
 
-.highlight-label {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-}
-
-/* Right — Flippable Card */
-.flip-card-container {
-    perspective: 1000px;
-    width: 340px;
-    height: 420px;
-    flex-shrink: 0;
-}
-
-.flip-card {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    transform-style: preserve-3d;
-    transition: transform 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    cursor: pointer;
-}
-
-.flip-card.flipped {
-    transform: rotateY(180deg);
-}
-
-.flip-card-face {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    border-radius: 24px;
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    text-align: center;
-}
-
-.flip-card-back {
-    transform: rotateY(180deg);
-}
-
-/* Card header */
-.flip-card-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.75rem;
-}
-
-.flip-avatar {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.codolio-gradient {
-    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
-}
-
-.leetcode-gradient {
-    background: linear-gradient(135deg, #f59e0b, #ef4444);
-    box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
-}
-
-.flip-avatar-icon {
-    color: #fff;
-}
-
-.flip-platform {
-    font-size: 1.2rem;
-    font-weight: 700;
-}
-
-.flip-username {
-    font-size: 0.95rem;
-    font-weight: 600;
-}
-
-/* Stats row */
-.flip-stats {
-    display: flex;
-    align-items: center;
-    gap: 1.25rem;
-    width: 100%;
-    justify-content: center;
-}
-
-.flip-stat-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.25rem;
-}
-
-.flip-stat-value {
-    font-family: 'Outfit', sans-serif;
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: var(--text-primary);
-}
-
-.flip-stat-label {
-    font-size: 0.8rem;
+.platform-stat-label {
+    font-size: 0.75rem;
     color: var(--text-secondary);
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
-.flip-stat-divider {
+.platform-stat-divider {
     width: 1px;
-    height: 40px;
+    height: 36px;
     background-color: var(--border-color);
 }
 
-/* Buttons */
-.flip-visit-btn {
+.platform-visit-btn {
     width: 100%;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
 }
 
-.leetcode-btn {
-    background: linear-gradient(135deg, #f59e0b, #ef4444);
-}
-
-.leetcode-btn:hover {
-    background: linear-gradient(135deg, #d97706, #dc2626);
-    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
-}
-
-/* Flip hint */
-.flip-hint {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.8rem;
-    color: var(--text-secondary);
-    opacity: 0.6;
-}
-
-/* Responsive */
+/* === Responsive === */
 @media (max-width: 768px) {
-    .codolio-layout {
-        flex-direction: column;
-        gap: 3rem;
+    .dashboard-top {
+        grid-template-columns: 1fr;
     }
 
-    .codolio-info {
-        text-align: center;
-        max-width: 100%;
+    .platform-cards {
+        grid-template-columns: 1fr;
     }
 
-    .codolio-highlights {
-        align-items: center;
+    .stat-card {
+        padding: 1rem 1.25rem;
     }
 
-    .flip-card-container {
-        width: 300px;
-        height: 400px;
+    .stat-card-value {
+        font-size: 1.3rem;
     }
 }

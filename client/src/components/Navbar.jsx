@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Moon, Sun, Menu, X } from 'lucide-react';
 import './Navbar.css';
 
 const Navbar = ({ isDark, toggleTheme }) => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const location = useLocation();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -15,29 +18,59 @@ const Navbar = ({ isDark, toggleTheme }) => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    const navLinks = [
-        { name: 'Home', href: '#home' },
-        { name: 'Skills', href: '#skills' },
-        { name: 'Projects', href: '#projects' },
-        { name: 'Education', href: '#education' },
-        { name: 'Contact', href: '#contact' },
-    ];
+    // Scroll to section, navigating to home first if needed
+    const scrollToSection = (e, sectionId) => {
+        e.preventDefault();
+        setIsMenuOpen(false);
+
+        if (location.pathname !== '/') {
+            navigate('/');
+            // Wait for navigation then scroll
+            setTimeout(() => {
+                const el = document.getElementById(sectionId);
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        } else {
+            const el = document.getElementById(sectionId);
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
+    const handlePageLink = () => {
+        setIsMenuOpen(false);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    const isActive = (path) => location.pathname === path;
 
     return (
         <nav className={`navbar ${isScrolled ? 'scrolled glass-panel' : ''}`}>
             <div className="container nav-container">
-                <a href="#home" className="nav-logo">
+                <Link to="/" className="nav-logo" onClick={() => window.scrollTo({ top: 0 })}>
                     Portfolio<span className="accent">.</span>
-                </a>
+                </Link>
 
                 {/* Desktop Nav */}
                 <div className="nav-desktop">
                     <ul className="nav-links">
-                        {navLinks.map((link) => (
-                            <li key={link.name}>
-                                <a href={link.href} className="nav-link">{link.name}</a>
-                            </li>
-                        ))}
+                        <li>
+                            <a href="#home" className="nav-link" onClick={(e) => scrollToSection(e, 'home')}>Home</a>
+                        </li>
+                        <li>
+                            <Link to="/about" className={`nav-link ${isActive('/about') ? 'active' : ''}`} onClick={handlePageLink}>About</Link>
+                        </li>
+                        <li>
+                            <Link to="/projects" className={`nav-link ${isActive('/projects') ? 'active' : ''}`} onClick={handlePageLink}>Projects</Link>
+                        </li>
+                        <li>
+                            <a href="#skills" className="nav-link" onClick={(e) => scrollToSection(e, 'skills')}>Skills</a>
+                        </li>
+                        <li>
+                            <a href="#education" className="nav-link" onClick={(e) => scrollToSection(e, 'education')}>Education</a>
+                        </li>
+                        <li>
+                            <a href="#contact" className="nav-link" onClick={(e) => scrollToSection(e, 'contact')}>Contact</a>
+                        </li>
                     </ul>
 
                     <button onClick={toggleTheme} className="theme-toggle" aria-label="Toggle Theme">
@@ -59,17 +92,24 @@ const Navbar = ({ isDark, toggleTheme }) => {
             {/* Mobile Menu */}
             <div className={`nav-mobile-menu glass-panel ${isMenuOpen ? 'open' : ''}`}>
                 <ul className="mobile-nav-links">
-                    {navLinks.map((link) => (
-                        <li key={link.name}>
-                            <a
-                                href={link.href}
-                                className="mobile-nav-link"
-                                onClick={() => setIsMenuOpen(false)}
-                            >
-                                {link.name}
-                            </a>
-                        </li>
-                    ))}
+                    <li>
+                        <a href="#home" className="mobile-nav-link" onClick={(e) => scrollToSection(e, 'home')}>Home</a>
+                    </li>
+                    <li>
+                        <Link to="/about" className={`mobile-nav-link ${isActive('/about') ? 'active' : ''}`} onClick={handlePageLink}>About</Link>
+                    </li>
+                    <li>
+                        <Link to="/projects" className={`mobile-nav-link ${isActive('/projects') ? 'active' : ''}`} onClick={handlePageLink}>Projects</Link>
+                    </li>
+                    <li>
+                        <a href="#skills" className="mobile-nav-link" onClick={(e) => scrollToSection(e, 'skills')}>Skills</a>
+                    </li>
+                    <li>
+                        <a href="#education" className="mobile-nav-link" onClick={(e) => scrollToSection(e, 'education')}>Education</a>
+                    </li>
+                    <li>
+                        <a href="#contact" className="mobile-nav-link" onClick={(e) => scrollToSection(e, 'contact')}>Contact</a>
+                    </li>
                 </ul>
             </div>
         </nav>

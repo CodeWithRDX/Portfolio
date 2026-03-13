@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Skills from './components/Skills';
@@ -6,7 +7,10 @@ import Projects from './components/Projects';
 import CodolioProfile from './components/CodolioProfile';
 import Education from './components/Education';
 import Contact from './components/Contact';
+import Certificates from './components/Certificates';
 import Footer from './components/Footer';
+import AboutPage from './pages/AboutPage';
+import ProjectsPage from './pages/ProjectsPage';
 import './App.css';
 
 function App() {
@@ -40,14 +44,21 @@ function App() {
     <div className="app-container">
       <Navbar isDark={isDark} toggleTheme={toggleTheme} />
 
-      <main>
-        <Hero />
-        <Projects />
-        <Skills />
-        <CodolioProfile />
-        <Education />
-        <Contact />
-      </main>
+      <Routes>
+        <Route path="/" element={
+          <main>
+            <Hero />
+            <Projects />
+            <Skills />
+            <CodolioProfile />
+            <Certificates />
+            <Education />
+            <Contact />
+          </main>
+        } />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/projects" element={<ProjectsPage />} />
+      </Routes>
 
       <Footer />
     </div>

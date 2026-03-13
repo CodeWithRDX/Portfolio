@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
-import { ExternalLink, Trophy, Code2, Flame, RotateCcw } from 'lucide-react';
+import { ExternalLink, Code2, TrendingUp } from 'lucide-react';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import './Codolio.css';
 
 const CodolioProfile = () => {
     const [isVisible, setIsVisible] = useState(false);
-    const [isFlipped, setIsFlipped] = useState(false);
     const sectionRef = useRef(null);
 
     useEffect(() => {
@@ -25,22 +25,61 @@ const CodolioProfile = () => {
         return () => observer.disconnect();
     }, []);
 
-    const codolioStats = {
-        platform: 'Codolio',
-        username: '@codewithrdx',
-        profileLink: 'https://codolio.com/profile/CodeWithRdx',
-        rating: '1508',
-        problemsSolved: '300+',
-        streak: '45',
-    };
+    // Stats data for the graphs
+    const problemBreakdown = [
+        { label: 'Easy', value: 120, max: 400, color: '#22c55e' },
+        { label: 'Medium', value: 140, max: 400, color: '#f59e0b' },
+        { label: 'Hard', value: 40, max: 400, color: '#ef4444' },
+    ];
 
-    const leetcodeStats = {
-        platform: 'LeetCode',
-        username: '@codewithrdx',
-        profileLink: 'https://leetcode.com/u/CodeWithRDX/',
-        rating: '1508',
-        problemsSolved: '250+',
-        contests: '4',
+    const platformStats = [
+        {
+            platform: 'LeetCode',
+            username: '@codewithrdx',
+            profileLink: 'https://leetcode.com/u/CodeWithRDX/',
+            solved: 250,
+            rating: 1508,
+            contests: 4,
+            gradient: 'linear-gradient(135deg, #f59e0b, #ef4444)',
+            color: '#f59e0b',
+        },
+        {
+            platform: 'Codolio',
+            username: '@codewithrdx',
+            profileLink: 'https://codolio.com/profile/CodeWithRdx',
+            solved: 400,
+            rating: null,
+            contests: null,
+            gradient: 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
+            color: '#3b82f6',
+        },
+    ];
+
+    // Mock Historical Data for Area Chart (Problems Solved / Progress)
+    const historicalProgressData = [
+        { month: 'Oct', solved: 45, rating: 1350 },
+        { month: 'Nov', solved: 90, rating: 1400 },
+        { month: 'Dec', solved: 150, rating: 1420 },
+        { month: 'Jan', solved: 210, rating: 1480 },
+        { month: 'Feb', solved: 260, rating: 1495 },
+        { month: 'Mar', solved: 400, rating: 1508 },
+    ];
+
+    // Custom Tooltip for the Recharts graph to match the site's dark glassmorphism theme
+    const CustomTooltip = ({ active, payload, label }) => {
+        if (active && payload && payload.length) {
+            return (
+                <div className="chart-tooltip glass-panel" style={{ padding: '10px 15px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)' }}>
+                    <p className="chart-tooltip-label" style={{ margin: 0, fontWeight: 600, color: 'var(--text-primary)' }}>{label}</p>
+                    {payload.map((entry, index) => (
+                        <p key={`item-${index}`} style={{ margin: '4px 0 0 0', color: entry.color, fontSize: '0.9rem', fontWeight: 500 }}>
+                            {entry.name}: {entry.value}
+                        </p>
+                    ))}
+                </div>
+            );
+        }
+        return null;
     };
 
     return (
@@ -48,99 +87,161 @@ const CodolioProfile = () => {
             <div className="container">
                 <h2 className="section-title"><span>Competitive Coding</span></h2>
 
-                <div className="codolio-layout">
-                    {/* Left side — info */}
-                    <div className={`codolio-info ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>
-                        <h3 className="codolio-heading">Consistent Problem Solver</h3>
-                        <p className="codolio-desc">
-                            Solved <strong>300+ DSA problems</strong> on LeetCode & GFG across arrays, recursion, dynamic programming, and graphs.
-                        </p>
-                        <p className="codolio-desc">
-                            LeetCode BiWeekly Contest Rating: <strong>1508</strong>
-                        </p>
+                <div className={`coding-dashboard ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>
+                    {/* Row 1: Main Ring Chart + Stats Summary */}
+                    <div className="dashboard-top">
+                        {/* Chart 1: Problems Solved */}
+                        <div className="interactive-chart-card glass-panel" style={{ display: 'flex', flexDirection: 'column' }}>
+                            <h3 className="chart-card-title">Problems Journey</h3>
+                            <div className="recharts-wrapper" style={{ width: '100%', marginTop: '1rem', flex: 1 }}>
+                                {isVisible && (
+                                    <ResponsiveContainer width="100%" height="100%">
+                                        <AreaChart data={historicalProgressData} margin={{ top: 10, right: 0, left: -25, bottom: 0 }}>
+                                            <defs>
+                                                <linearGradient id="colorSolved" x1="0" y1="0" x2="0" y2="1">
+                                                    <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.4}/>
+                                                    <stop offset="95%" stopColor="#8b5cf6" stopOpacity={0}/>
+                                                </linearGradient>
+                                            </defs>
+                                            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
+                                            <XAxis dataKey="month" stroke="var(--text-secondary)" fontSize={12} tickLine={false} axisLine={false} />
+                                            <YAxis yAxisId="left" stroke="var(--text-secondary)" fontSize={12} tickLine={false} axisLine={false} />
+                                            <Tooltip content={<CustomTooltip />} />
+                                            <Area yAxisId="left" type="monotone" dataKey="solved" name="Problems Solved" stroke="#8b5cf6" strokeWidth={3} fillOpacity={1} fill="url(#colorSolved)" activeDot={{ r: 6, fill: '#8b5cf6', stroke: '#fff', strokeWidth: 2 }} />
+                                        </AreaChart>
+                                    </ResponsiveContainer>
+                                )}
+                            </div>
+                        </div>
 
-                        <div className="codolio-highlights">
-                            <div className="highlight-item">
-                                <Trophy size={22} className="highlight-icon gold" />
-                                <div>
-                                    <span className="highlight-value">300+</span>
-                                    <span className="highlight-label">DSA Problems Solved</span>
+                        {/* Chart 2: Contest Rating */}
+                        <div className="interactive-chart-card glass-panel" style={{ display: 'flex', flexDirection: 'column', animationDelay: '0.1s' }}>
+                            <h3 className="chart-card-title">Contest Rating</h3>
+                            <div className="recharts-wrapper" style={{ width: '100%', marginTop: '1rem', flex: 1 }}>
+                                {isVisible && (
+                                    <ResponsiveContainer width="100%" height="100%">
+                                        <AreaChart data={historicalProgressData} margin={{ top: 10, right: 0, left: -10, bottom: 0 }}>
+                                            <defs>
+                                                <linearGradient id="colorRating" x1="0" y1="0" x2="0" y2="1">
+                                                    <stop offset="5%" stopColor="#f59e0b" stopOpacity={0.4}/>
+                                                    <stop offset="95%" stopColor="#f59e0b" stopOpacity={0}/>
+                                                </linearGradient>
+                                            </defs>
+                                            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
+                                            <XAxis dataKey="month" stroke="var(--text-secondary)" fontSize={12} tickLine={false} axisLine={false} />
+                                            <YAxis yAxisId="right" stroke="var(--text-secondary)" fontSize={12} tickLine={false} axisLine={false} domain={['dataMin - 50', 'dataMax + 50']} />
+                                            <Tooltip content={<CustomTooltip />} />
+                                            <Area yAxisId="right" type="monotone" dataKey="rating" name="Contest Rating" stroke="#f59e0b" strokeWidth={3} fillOpacity={1} fill="url(#colorRating)" activeDot={{ r: 6, fill: '#f59e0b', stroke: '#fff', strokeWidth: 2 }} />
+                                        </AreaChart>
+                                    </ResponsiveContainer>
+                                )}
+                            </div>
+                        </div>
+
+                        {/* Stats Cards */}
+                        <div className="stats-summary">
+                            <div className="stat-card glass-panel" style={{ animationDelay: '0.1s' }}>
+                                <div className="stat-card-icon" style={{ background: 'linear-gradient(135deg, #f59e0b, #ef4444)' }}>
+                                    <TrendingUp size={22} color="#fff" />
+                                </div>
+                                <div className="stat-card-info">
+                                    <span className="stat-card-value">1508</span>
+                                    <span className="stat-card-label">Contest Rating</span>
                                 </div>
                             </div>
-                            <div className="highlight-item">
-                                <Flame size={22} className="highlight-icon red" />
-                                <div>
-                                    <span className="highlight-value">1508</span>
-                                    <span className="highlight-label">LeetCode Contest Rating</span>
+                            <div className="stat-card glass-panel" style={{ animationDelay: '0.2s' }}>
+                                <div className="stat-card-icon" style={{ background: 'linear-gradient(135deg, #22c55e, #16a34a)' }}>
+                                    <Code2 size={22} color="#fff" />
+                                </div>
+                                <div className="stat-card-info">
+                                    <span className="stat-card-value">4</span>
+                                    <span className="stat-card-label">Contests Participated</span>
+                                </div>
+                            </div>
+                            <div className="stat-card glass-panel" style={{ animationDelay: '0.3s' }}>
+                                <div className="stat-card-icon" style={{ background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)' }}>
+                                    <Code2 size={22} color="#fff" />
+                                </div>
+                                <div className="stat-card-info">
+                                    <span className="stat-card-value">400+</span>
+                                    <span className="stat-card-label">DSA Problems</span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    {/* Right side — flippable card */}
-                    <div className={`flip-card-container ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`} style={{ animationDelay: '0.2s' }}>
-                        <div className={`flip-card ${isFlipped ? 'flipped' : ''}`} onClick={() => setIsFlipped(!isFlipped)}>
-                            {/* Front — Codolio */}
-                            <div className="flip-card-face flip-card-front glass-panel">
-                                <div className="flip-card-header">
-                                    <div className="flip-avatar codolio-gradient">
-                                        <Code2 size={28} className="flip-avatar-icon" />
+                    {/* Row 2: Difficulty Breakdown Bar Chart */}
+                    <div className="bar-chart-card glass-panel" style={{ animationDelay: '0.3s' }}>
+                        <h3 className="chart-card-title">Difficulty Breakdown</h3>
+                        <div className="bar-chart">
+                            {problemBreakdown.map((item, index) => (
+                                <div className="bar-row" key={item.label}>
+                                    <span className="bar-label">{item.label}</span>
+                                    <div className="bar-track">
+                                        <div
+                                            className="bar-fill"
+                                            style={{
+                                                width: isVisible ? `${(item.value / item.max) * 100}%` : '0%',
+                                                backgroundColor: item.color,
+                                                transitionDelay: `${0.3 + index * 0.15}s`,
+                                            }}
+                                        />
                                     </div>
-                                    <div>
-                                        <h4 className="flip-platform">{codolioStats.platform}</h4>
-                                        <p className="flip-username gradient-text">{codolioStats.username}</p>
-                                    </div>
+                                    <span className="bar-value">{item.value}</span>
                                 </div>
-
-                                <div className="flip-stats">
-                                    <div className="flip-stat-item">
-                                        <span className="flip-stat-value">{codolioStats.problemsSolved}</span>
-                                        <span className="flip-stat-label">Solved</span>
-                                    </div>
-                                </div>
-
-                                <a href={codolioStats.profileLink} target="_blank" rel="noopener noreferrer" className="btn btn-primary flip-visit-btn" onClick={(e) => e.stopPropagation()}>
-                                    Visit Profile <ExternalLink size={14} />
-                                </a>
-
-                                <div className="flip-hint">
-                                    <RotateCcw size={14} /> Tap to see LeetCode
-                                </div>
-                            </div>
-
-                            {/* Back — LeetCode */}
-                            <div className="flip-card-face flip-card-back glass-panel">
-                                <div className="flip-card-header">
-                                    <div className="flip-avatar leetcode-gradient">
-                                        <Code2 size={28} className="flip-avatar-icon" />
-                                    </div>
-                                    <div>
-                                        <h4 className="flip-platform">{leetcodeStats.platform}</h4>
-                                        <p className="flip-username gradient-text">{leetcodeStats.username}</p>
-                                    </div>
-                                </div>
-
-                                <div className="flip-stats">
-                                    <div className="flip-stat-item">
-                                        <span className="flip-stat-value">{leetcodeStats.rating}</span>
-                                        <span className="flip-stat-label">Contest Rating</span>
-                                    </div>
-                                    <div className="flip-stat-divider"></div>
-                                    <div className="flip-stat-item">
-                                        <span className="flip-stat-value">{leetcodeStats.problemsSolved}</span>
-                                        <span className="flip-stat-label">Solved</span>
-                                    </div>
-                                </div>
-
-                                <a href={leetcodeStats.profileLink} target="_blank" rel="noopener noreferrer" className="btn btn-primary flip-visit-btn leetcode-btn" onClick={(e) => e.stopPropagation()}>
-                                    Visit Profile <ExternalLink size={14} />
-                                </a>
-
-                                <div className="flip-hint">
-                                    <RotateCcw size={14} /> Tap to see Codolio
-                                </div>
-                            </div>
+                            ))}
                         </div>
+                    </div>
+
+                    {/* Row 3: Platform Cards */}
+                    <div className="platform-cards">
+                        {platformStats.map((p, index) => (
+                            <div className="platform-card glass-panel" key={p.platform} style={{ animationDelay: `${0.4 + index * 0.15}s` }}>
+                                <div className="platform-card-header">
+                                    <div className="platform-avatar" style={{ background: p.gradient }}>
+                                        <Code2 size={24} color="#fff" />
+                                    </div>
+                                    <div>
+                                        <h4 className="platform-name">{p.platform}</h4>
+                                        <p className="platform-username gradient-text">{p.username}</p>
+                                    </div>
+                                </div>
+
+                                <div className="platform-stats-row">
+                                    <div className="platform-stat">
+                                        <span className="platform-stat-value">{p.solved}+</span>
+                                        <span className="platform-stat-label">Solved</span>
+                                    </div>
+                                    {p.rating && (
+                                        <>
+                                            <div className="platform-stat-divider" />
+                                            <div className="platform-stat">
+                                                <span className="platform-stat-value">{p.rating}</span>
+                                                <span className="platform-stat-label">Rating</span>
+                                            </div>
+                                        </>
+                                    )}
+                                    {p.contests && (
+                                        <>
+                                            <div className="platform-stat-divider" />
+                                            <div className="platform-stat">
+                                                <span className="platform-stat-value">{p.contests}</span>
+                                                <span className="platform-stat-label">Contests</span>
+                                            </div>
+                                        </>
+                                    )}
+                                </div>
+
+                                <a
+                                    href={p.profileLink}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="btn btn-primary platform-visit-btn"
+                                >
+                                    Visit Profile <ExternalLink size={14} />
+                                </a>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>

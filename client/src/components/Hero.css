@@ -40,14 +40,12 @@
     font-weight: 500;
     color: var(--accent-color);
     margin-bottom: 0.5rem;
-    opacity: 0;
 }
 
 .hero-title {
     font-size: 4rem;
     margin-bottom: 1.5rem;
     line-height: 1.1;
-    opacity: 0;
 }
 
 .hero-title-role {
@@ -62,20 +60,17 @@
     margin-bottom: 2.5rem;
     max-width: 500px;
     line-height: 1.8;
-    opacity: 0;
 }
 
 .hero-cta {
     display: flex;
     gap: 1.5rem;
     margin-bottom: 3rem;
-    opacity: 0;
 }
 
 .hero-socials {
     display: flex;
     gap: 1.5rem;
-    opacity: 0;
 }
 
 .hero-socials a {
@@ -101,7 +96,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    opacity: 0;
 }
 
 .hero-shape {

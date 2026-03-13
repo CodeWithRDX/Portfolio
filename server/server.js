@@ -26,14 +26,23 @@ app.get(/^(?!\/api).*/, (req, res) => {
 });
 
 // Connect to MongoDB and start server
-mongoose.connect(process.env.MONGO_URI)
-    .then(() => {
-        console.log('✅ MongoDB connected');
-        app.listen(PORT, () => {
-            console.log(`🚀 Server running on port ${PORT}`);
+if (process.env.NODE_ENV !== 'production') {
+    mongoose.connect(process.env.MONGO_URI)
+        .then(() => {
+            console.log('✅ MongoDB connected');
+            app.listen(PORT, () => {
+                console.log(`🚀 Server running on port ${PORT}`);
+            });
+        })
+        .catch((err) => {
+            console.error('❌ MongoDB connection error:', err.message);
+            process.exit(1);
         });
-    })
-    .catch((err) => {
-        console.error('❌ MongoDB connection error:', err.message);
-        process.exit(1);
-    });
+} else {
+    // In production (Vercel), just connect without listening on a port
+    mongoose.connect(process.env.MONGO_URI)
+        .then(() => console.log('✅ MongoDB connected (Serverless)'))
+        .catch(err => console.error('❌ MongoDB connection error:', err.message));
+}
+
+module.exports = app;
