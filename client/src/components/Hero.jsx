@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { ArrowRight, Download, Github, Linkedin, Twitter } from 'lucide-react';
-import img from '../assets/Img.JPG';
+import img from '../assets/Img.png';
 import './Hero.css';
 
 const Hero = () => {

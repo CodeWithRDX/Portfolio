@@ -126,6 +126,7 @@
     border: 1px solid var(--border-color);
     position: relative;
     overflow: hidden;
+
 }
 
 .hero-placeholder-image img {
@@ -135,6 +136,7 @@
     display: block;
     position: relative;
     z-index: 1;
+    object-position: top;
 }
 
 .hero-placeholder-image::after {

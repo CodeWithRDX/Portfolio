@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { ArrowRight, Github, Linkedin, Twitter, MapPin, BookOpen, Award, Calendar, Code2, Server, Database, Smartphone, CheckCircle } from 'lucide-react';
-import img from '../assets/Img.JPG';
+import img from '../assets/Img.png';
 import Certificates from '../components/Certificates';
 import './AboutPage.css';
 import { useNavigate } from 'react-router-dom';
