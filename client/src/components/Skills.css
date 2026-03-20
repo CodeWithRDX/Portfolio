@@ -9,10 +9,22 @@
 
 .skills-container-detailed {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 2.5rem;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
     margin-top: 1.5rem;
     overflow: visible; /* allow scatter positions to show outside bounds */
+}
+
+@media (max-width: 1100px) {
+    .skills-container-detailed {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 650px) {
+    .skills-container-detailed {
+        grid-template-columns: 1fr;
+    }
 }
 
 .skill-card-detailed {
