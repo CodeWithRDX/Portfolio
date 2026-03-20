@@ -65,6 +65,7 @@ const AboutPage = () => {
     const navigate = useNavigate();
     const skillsRef = useRef(null);
     const [skillsInView, setSkillsInView] = useState(false);
+    const [codingStats, setCodingStats] = useState({ lcSolved: 0, lcRating: 0, gfgSolved: 0, gfgScore: 0, loading: true });
 
     useEffect(() => {
         window.scrollTo({ top: 0 });
@@ -80,6 +81,30 @@ const AboutPage = () => {
         }
         
         return () => observer.disconnect();
+    }, []);
+
+    useEffect(() => {
+        const fetchCodingStats = async () => {
+             try {
+                 const [lcRes, gfgRes] = await Promise.all([
+                     fetch('/proxy/lc/user/leetcode/codewithrdx/'),
+                     fetch('/proxy/gfg/codewithrdx?raw=true')
+                 ]);
+                 const lcData = await lcRes.json();
+                 const gfgData = await gfgRes.json();
+                 
+                 const lcTotal = lcData?.data?.matchedUser?.submitStats?.acSubmissionNum?.find(s => s.difficulty === 'All')?.count || 250;
+                 const lcRating = Math.round(lcData?.data?.userContestRanking?.rating || 1500);
+                 const gfgTotal = gfgData?.total_problems_solved || 0;
+                 const gfgScore = gfgData?.total_score || 0;
+                 
+                 setCodingStats({ lcSolved: lcTotal, lcRating, gfgSolved: gfgTotal, gfgScore, loading: false });
+             } catch(err) {
+                 console.error(err);
+                 setCodingStats(prev => ({ ...prev, loading: false }));
+             }
+        };
+        fetchCodingStats();
     }, []);
 
     const handleLetsTalk = (e) => {
@@ -238,8 +263,8 @@ const AboutPage = () => {
                                 </div>
                                 <h3>LeetCode</h3>
                                 <div className="coding-card-stats">
-                                    <div><span className="coding-stat-num">250+</span><span className="coding-stat-lbl">Solved</span></div>
-                                    <div><span className="coding-stat-num">1508</span><span className="coding-stat-lbl">Rating</span></div>
+                                    <div><span className="coding-stat-num">{codingStats.loading ? '...' : `${codingStats.lcSolved}+`}</span><span className="coding-stat-lbl">Solved</span></div>
+                                    <div><span className="coding-stat-num">{codingStats.loading ? '...' : codingStats.lcRating}</span><span className="coding-stat-lbl">Rating</span></div>
                                 </div>
                                 <a href="https://leetcode.com/u/CodeWithRDX/" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ width: '100%', marginTop: '1rem' }}>
                                     Visit Profile
@@ -247,14 +272,15 @@ const AboutPage = () => {
                             </div>
 
                             <div className="about-coding-card glass-panel">
-                                <div className="coding-card-icon" style={{ background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)' }}>
+                                <div className="coding-card-icon" style={{ background: 'linear-gradient(135deg, #22c55e, #16a34a)' }}>
                                     <Code2 size={28} color="#fff" />
                                 </div>
-                                <h3>Codolio</h3>
+                                <h3>GeeksforGeeks</h3>
                                 <div className="coding-card-stats">
-                                    <div><span className="coding-stat-num">400+</span><span className="coding-stat-lbl">Solved</span></div>
+                                    <div><span className="coding-stat-num">{codingStats.loading ? '...' : `${codingStats.gfgSolved}+`}</span><span className="coding-stat-lbl">Solved</span></div>
+                                    <div><span className="coding-stat-num">{codingStats.loading ? '...' : codingStats.gfgScore}</span><span className="coding-stat-lbl">Score</span></div>
                                 </div>
-                                <a href="https://codolio.com/profile/CodeWithRdx" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ width: '100%', marginTop: '1rem' }}>
+                                <a href="https://auth.geeksforgeeks.org/user/codewithrdx/" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ width: '100%', marginTop: '1rem' }}>
                                     Visit Profile
                                 </a>
                             </div>

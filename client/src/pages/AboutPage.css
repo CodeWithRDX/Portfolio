@@ -45,7 +45,7 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    background: rgba(15, 23, 42, 0.4);
+    background: var(--glass-bg);
 }
 
 .about-img-wrapper {
@@ -205,12 +205,13 @@
 .what-i-do-card {
     padding: 1.5rem;
     border-radius: 16px;
-    background: rgba(15, 23, 42, 0.3);
-    transition: transform 0.3s ease;
+    background: var(--glass-bg);
+    transition: transform 0.3s ease, background 0.3s ease;
+    border: 1px solid var(--glass-border);
 }
 .what-i-do-card:hover {
     transform: translateY(-5px);
-    background: rgba(15, 23, 42, 0.5);
+    background: var(--bg-tertiary);
 }
 
 .what-i-do-header {
@@ -253,7 +254,8 @@
     font-weight: 500;
     color: var(--text-primary);
     cursor: default;
-    background: rgba(15, 23, 42, 0.5);
+    background: var(--bg-tertiary);
+    border: 1px solid var(--glass-border);
     /* Transition is handled inline in JSX for staggered delays */
 }
 
@@ -266,22 +268,52 @@
 }
 
 
-/* Education Timeline */
+/* ============================================================ */
+/* === Education Timeline - Sticky Stack Animation           === */
+/* ============================================================ */
+
 .about-timeline {
-    margin-top: 1rem;
+    position: relative;
+    margin-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+/* Continuous background path line */
+.about-timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 23px; /* Center with 48px dot */
+    width: 2px;
+    background: linear-gradient(180deg, var(--accent-color) 0%, rgba(59, 130, 246, 0.1) 100%);
+    z-index: 0;
 }
 
 .about-timeline-item {
+    position: sticky;
     display: flex;
     gap: 1.5rem;
-    margin-bottom: 0;
+    margin-bottom: 8rem; /* Creates the scroll distance for animation */
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
+
+.about-timeline-item:last-child {
+    margin-bottom: 0; /* Ensures container ends precisely after last card */
+}
+
+/* Offsets for cascading stack */
+.about-timeline-item:nth-child(1) { top: 100px; z-index: 10; }
+.about-timeline-item:nth-child(2) { top: 125px; z-index: 20; }
+.about-timeline-item:nth-child(3) { top: 150px; z-index: 30; }
+.about-timeline-item:nth-child(4) { top: 175px; z-index: 40; }
 
 .about-timeline-marker {
     display: flex;
     flex-direction: column;
     align-items: center;
     flex-shrink: 0;
+    margin-top: 0;
 }
 
 .about-timeline-dot {
@@ -291,7 +323,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1;
+    background: var(--bg-color);
+    border: 2px solid var(--accent-color);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 2;
+    position: relative;
+    transition: all 0.3s ease;
 }
 
 .about-timeline-icon {
@@ -299,17 +336,18 @@
 }
 
 .about-timeline-line {
-    width: 2px;
-    flex: 1;
-    background: linear-gradient(180deg, var(--accent-color) 0%, rgba(59, 130, 246, 0.1) 100%);
-    margin-top: 0.25rem;
+    display: none; /* Hide old segment lines in favor of continuous pseudo-element */
 }
 
 .about-timeline-card {
     padding: 1.5rem;
     border-radius: 16px;
-    margin-bottom: 2rem;
     flex: 1;
+    background: var(--bg-color) !important; /* Solid background obscures underneath cards */
+    box-shadow: 0 -12px 24px var(--card-shadow), inset 0 1px 1px var(--glass-border) !important; 
+    border: 1px solid var(--glass-border);
+    margin-bottom: 0;
+    transition: transform 0.3s ease;
 }
 
 .about-timeline-year {
@@ -339,6 +377,7 @@
 }
 
 
+
 /* Coding Stats inside Right column */
 .about-coding-grid {
     display: grid;
@@ -355,7 +394,8 @@
     align-items: center;
     gap: 1rem;
     transition: transform 0.3s ease;
-    background: rgba(15, 23, 42, 0.3);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
 }
 
 .about-coding-card:hover {

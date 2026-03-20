@@ -4,12 +4,8 @@ import { Link } from 'react-router-dom';
 import ProjectModal from './ProjectModal';
 import './Projects.css';
 
-import natlefImg from '../assets/NatLef.png';
-import mentorImg from '../assets/MentoConnect.png';
 import quizImg from '../assets/GUI.png';
 import mealImg from '../assets/meal.png';
-import Rock from '../assets/Rock.png';
-import Tic from '../assets/Tic.png';
 
 
 export const projectsData = [
@@ -17,7 +13,7 @@ export const projectsData = [
         id: 1,
         title: 'NatLef Research',
         description: 'Led the end-to-end execution of a Product Portfolio Web Application. Structured frontend with React, built backend APIs with Node.js & MongoDB, and handled VPS deployment with SSL on Hostinger.',
-        image: natlefImg,
+        image: '#',
         tags: ['MongoDB', 'Express', 'React', 'Node.js'],
         github: 'https://github.com/Ankitmina25/NatLef-Research.git',
         live: 'https://www.natlefresearch.com/',
@@ -30,7 +26,7 @@ export const projectsData = [
         id: 2,
         title: 'Mentor Connect',
         description: 'Full-stack mentorship platform with role-based auth, mentor discovery, session booking, real-time Socket.io chat, and a responsive UI enhanced with Spline 3D components.',
-        image: mentorImg,
+        image: '#',
         tags: ['MongoDB', 'Express', 'React', 'Node.js', 'Socket.io'],
         github: 'https://github.com/CodeWithRDX/MentorConnect.git',
         live: 'https://mentor-connect-puce.vercel.app/',
@@ -68,8 +64,8 @@ export const projectsData = [
         id: 5,
         title: 'Rock Paper Scissor Game',
         description: 'A simple and interactive Rock Paper Scissors game built using HTML, CSS, and JavaScript. Challenge the computer and keep track of scores!',
-        image: Rock,
-        tags: ['HTML', 'CSS', 'Tailwind','JavaScript'],
+        image: '#',
+        tags: ['HTML', 'CSS', 'Tailwind', 'JavaScript'],
         github: 'https://github.com/CodeWithRDX/ROCK-PAPER-SCISSORS.git',
         live: 'https://codewithrdx.github.io/ROCK-PAPER-SCISSORS/',
         category: 'Mini Projects',
@@ -81,8 +77,8 @@ export const projectsData = [
         id: 6,
         title: 'Tic Tac Toe Game',
         description: 'A simple, fun, and responsive Tic Tac Toe game built with HTML, CSS, and JavaScript.',
-        image: Tic,
-        tags: ['HTML', 'CSS', 'Tailwind','JavaScript'],
+        image: '#',
+        tags: ['HTML', 'CSS', 'Tailwind', 'JavaScript'],
         github: 'https://github.com/CodeWithRDX/Tic-Tac-Toe.git',
         live: 'https://codewithrdx.github.io/Tic-Tac-Toe/',
         category: 'Mini Projects',

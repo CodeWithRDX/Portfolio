@@ -4,7 +4,7 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
-import CodolioProfile from './components/CodolioProfile';
+import CodingProfile from './components/CodingProfile';
 import Education from './components/Education';
 import Contact from './components/Contact';
 import Certificates from './components/Certificates';
@@ -50,7 +50,7 @@ function App() {
             <Hero />
             <Projects />
             <Skills />
-            <CodolioProfile />
+            <CodingProfile />
             <Certificates homepageMode={true} />
             <Education />
             <Contact />

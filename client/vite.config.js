@@ -6,6 +6,16 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
+      '/proxy/gfg': {
+        target: 'https://gfgstatscard.vercel.app',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/proxy\/gfg/, '')
+      },
+      '/proxy/lc': {
+        target: 'https://competeapi.vercel.app',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/proxy\/lc/, '')
+      },
       '/api': {
         target: 'http://localhost:5000',
         changeOrigin: true

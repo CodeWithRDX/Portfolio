@@ -94,7 +94,7 @@ const Contact = () => {
 
                             <div className="form-group">
                                 <label htmlFor="message">Message</label>
-                                <textarea id="message" rows="5" placeholder="How can I help you?" value={formData.message} onChange={handleChange} required></textarea>
+                                <textarea id="message" rows="3" placeholder="How can I help you?" value={formData.message} onChange={handleChange} required></textarea>
                             </div>
 
                             {status && (

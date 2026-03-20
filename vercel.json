@@ -15,6 +15,14 @@
     ],
     "rewrites": [
         {
+            "source": "/proxy/gfg/(.*)",
+            "destination": "https://gfgstatscard.vercel.app/$1"
+        },
+        {
+            "source": "/proxy/lc/(.*)",
+            "destination": "https://competeapi.vercel.app/$1"
+        },
+        {
             "source": "/api/(.*)",
             "destination": "/api/index"
         },

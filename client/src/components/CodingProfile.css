@@ -1,0 +1,529 @@
+.coding-profile-section {
+    position: relative;
+    background-color: var(--bg-secondary);
+}
+
+.opacity-0 { opacity: 0; }
+
+/* Dashboard layout */
+.coding-dashboard {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+/* ── Chart Card Title ── */
+.chart-card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+    color: var(--text-primary);
+}
+
+/* ============================================================ */
+/* === Summary Stat Cards                                    === */
+/* ============================================================ */
+
+.stats-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.stat-card {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1.25rem 1.5rem;
+    border-radius: 16px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    flex: 1;
+}
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
+.stat-card-icon {
+    width: 48px; height: 48px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+}
+.stat-card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+}
+.stat-card-value {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.2;
+}
+.stat-card-label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+/* ============================================================ */
+/* === Rating Graph Card (LC)                                === */
+/* ============================================================ */
+
+.rating-graph-card {
+    padding: 2rem;
+    border-radius: 20px;
+}
+
+.rgc-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.rgc-title-group {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.rgc-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+}
+
+.rgc-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 0.3rem 0.7rem;
+    border-radius: 8px;
+    border: 1px solid var(--glass-border);
+    transition: color 0.2s, border-color 0.2s;
+}
+.rgc-link:hover {
+    color: #22c55e;
+    border-color: #22c55e;
+}
+
+/* Rating Area Graph */
+.rating-graph-card {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ============================================================ */
+/* === GFG Graph Card                                        === */
+/* ============================================================ */
+
+.gfg-graph-card {
+    padding: 2rem;
+    border-radius: 20px;
+}
+
+.gfg-body {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: center;
+}
+
+/* GFG score bars */
+.gfg-score-graph {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.gfg-score-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+}
+
+.gfg-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.gfg-bar-label {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    width: 95px;
+    flex-shrink: 0;
+}
+
+.gfg-bar-track {
+    flex: 1;
+    height: 12px;
+    background: var(--bg-tertiary, rgba(255,255,255,0.06));
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.gfg-bar-fill {
+    height: 100%;
+    border-radius: 8px;
+    width: 0;
+}
+
+.gfg-bar-value {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    width: 36px;
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.gfg-streak-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.85rem;
+    background: rgba(245,158,11,0.1);
+    border: 1px solid rgba(245,158,11,0.25);
+    border-radius: 20px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #f59e0b;
+    width: fit-content;
+}
+
+/* GFG stat chips grid */
+.gfg-stat-chips {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.6rem;
+}
+
+.gfg-chip {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15rem;
+    padding: 0.75rem 0.6rem;
+    border-radius: 12px;
+    background: var(--bg-tertiary, rgba(255,255,255,0.04));
+    border: 1px solid var(--glass-border);
+}
+
+.gfg-chip-val {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.gfg-chip-lbl {
+    font-size: 0.68rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+/* ============================================================ */
+/* === Difficulty Section (donut + bar)                      === */
+/* ============================================================ */
+
+.lc-difficulty-section {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 1.5rem;
+    align-items: stretch;
+}
+
+.donut-card {
+    padding: 2rem;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.donut-wrapper {
+    position: relative;
+    flex: 1;
+}
+
+.donut-center-label {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    pointer-events: none;
+}
+
+.dcl-value {
+    display: block;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.1;
+}
+
+.dcl-sub {
+    display: block;
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Bar chart */
+.bar-chart-card {
+    padding: 2rem;
+    border-radius: 20px;
+}
+
+.bar-chart {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.bar-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.bar-label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    width: 65px;
+    flex-shrink: 0;
+}
+
+.bar-track {
+    flex: 1;
+    height: 14px;
+    background: var(--bg-tertiary);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.bar-fill {
+    height: 100%;
+    border-radius: 10px;
+    width: 0;
+    transition: width 1.4s cubic-bezier(0.4,0,0.2,1);
+    position: relative;
+}
+
+.bar-fill::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 6px; height: 100%;
+    background: rgba(255,255,255,0.3);
+    border-radius: 0 10px 10px 0;
+}
+
+.bar-value {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--text-primary);
+    width: 40px;
+    text-align: right;
+    flex-shrink: 0;
+}
+
+/* ============================================================ */
+/* === Split Layout & Platform Cards                         === */
+/* ============================================================ */
+
+.profile-split-layout {
+    display: grid;
+    grid-template-columns: 1.8fr 1fr;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+.profile-left-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    min-width: 0;
+}
+
+.profile-right-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    position: sticky;
+    top: 5rem;
+}
+
+@media (max-width: 1024px) {
+    .profile-split-layout {
+        grid-template-columns: 1fr;
+    }
+    
+    .profile-right-col {
+        position: static;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+}
+
+.platform-card {
+    padding: 2rem;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.platform-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.15);
+}
+
+.platform-card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.platform-avatar {
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+}
+
+.platform-name {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.platform-username {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.platform-stats-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 0;
+    border-top: 1px solid var(--glass-border);
+    border-bottom: 1px solid var(--glass-border);
+    flex-wrap: wrap;
+}
+
+.platform-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+    flex: 1;
+    min-width: 55px;
+}
+
+.platform-stat-value {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.platform-stat-label {
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.platform-stat-divider {
+    width: 1px;
+    height: 32px;
+    background: var(--glass-border);
+    flex-shrink: 0;
+}
+
+.platform-visit-btn {
+    width: 100%;
+    font-size: 0.9rem;
+}
+
+/* ============================================================ */
+/* === Responsive                                            === */
+/* ============================================================ */
+
+@media (max-width: 900px) {
+    .gfg-body {
+        grid-template-columns: 1fr;
+    }
+
+    .gfg-stat-chips {
+        grid-template-columns: repeat(5, 1fr);
+    }
+
+    .lc-difficulty-section {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .profile-right-col {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-card {
+        padding: 1rem 1.25rem;
+    }
+
+    .stat-card-value {
+        font-size: 1.3rem;
+    }
+
+    .rbg-tiers-row {
+        gap: 0.3rem;
+    }
+
+    .rbg-tier-chip {
+        font-size: 0.65rem;
+        padding: 0.2rem 0.5rem;
+    }
+
+    .gfg-stat-chips {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .rgc-meta {
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .rating-graph-card,
+    .gfg-graph-card,
+    .donut-card,
+    .bar-chart-card {
+        padding: 1.25rem;
+    }
+
+    .rbg-rating {
+        font-size: 1.8rem;
+    }
+
+    .gfg-stat-chips {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
