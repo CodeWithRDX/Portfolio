@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
+const rateLimit = require('express-rate-limit');
 require('dotenv').config();
 
 const contactRoutes = require('./routes/contactRoutes');
@@ -9,9 +10,38 @@ const contactRoutes = require('./routes/contactRoutes');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middleware
-app.use(cors());
-app.use(express.json());
+// ── CORS: only allow known origins ─────────────────────────────────────────
+const allowedOrigins = [
+    'http://localhost:5173',
+    'http://localhost:3000',
+    'http://localhost:5000',
+    process.env.CLIENT_ORIGIN,
+].filter(Boolean);
+
+app.use(cors({
+    origin: (origin, callback) => {
+        // Allow requests with no Origin header (e.g. same-origin, mobile apps)
+        if (!origin || allowedOrigins.some(o => origin.startsWith(o))) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    methods: ['GET', 'POST'],
+    optionsSuccessStatus: 200
+}));
+
+// ── Global rate limiter: 100 req / 15 min per IP (DDoS guard) ──────────────
+const globalLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 100,
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: { success: false, message: 'Too many requests. Please slow down.' }
+});
+app.use(globalLimiter);
+
+app.use(express.json({ limit: '10kb' })); // reject oversized payloads
 
 // API Routes
 app.use('/api/contact', contactRoutes);

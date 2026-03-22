@@ -4,6 +4,7 @@ import './Contact.css';
 
 const Contact = () => {
     const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
+    const [honeypot, setHoneypot] = useState(''); // hidden bot trap
     const [status, setStatus] = useState(null); // 'success' | 'error' | 'loading' | null
     const [statusMsg, setStatusMsg] = useState('');
 
@@ -15,11 +16,26 @@ const Contact = () => {
         e.preventDefault();
         setStatus('loading');
 
+        // Honeypot check — if a bot filled this hidden field, silently fake success
+        if (honeypot) {
+            setTimeout(() => {
+                setStatus('success');
+                setStatusMsg('Message sent successfully! I\'ll get back to you soon.');
+                setFormData({ name: '', email: '', subject: '', message: '' });
+                setTimeout(() => { setStatus(null); setStatusMsg(''); }, 5000);
+            }, 1200);
+            return;
+        }
+
         try {
             const res = await fetch('/api/contact', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData)
+                body: JSON.stringify({
+                    ...formData,
+                    website: '',            // honeypot value (always empty for real users)
+                    _t: Date.now()          // submission timestamp nonce
+                })
             });
 
             const data = await res.json();
@@ -76,7 +92,7 @@ const Contact = () => {
                     </div>
 
                     <div className="contact-form-wrapper glass-panel animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-                        <form className="contact-form" onSubmit={handleSubmit}>
+                        <form className="contact-form" onSubmit={handleSubmit} autoComplete="off">
                             <div className="form-group">
                                 <label htmlFor="name">Your Name</label>
                                 <input type="text" id="name" placeholder="John Doe" value={formData.name} onChange={handleChange} required />
@@ -95,6 +111,20 @@ const Contact = () => {
                             <div className="form-group">
                                 <label htmlFor="message">Message</label>
                                 <textarea id="message" rows="3" placeholder="How can I help you?" value={formData.message} onChange={handleChange} required></textarea>
+                            </div>
+
+                            {/* Honeypot field — hidden from humans, visible to bots */}
+                            <div className="honeypot-field" aria-hidden="true">
+                                <label htmlFor="website">Leave this empty</label>
+                                <input
+                                    type="text"
+                                    id="website"
+                                    name="website"
+                                    value={honeypot}
+                                    onChange={(e) => setHoneypot(e.target.value)}
+                                    tabIndex="-1"
+                                    autoComplete="off"
+                                />
                             </div>
 
                             {status && (
