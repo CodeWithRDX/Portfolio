@@ -40,8 +40,8 @@ router.post('/', contactLimiter, async (req, res) => {
         // ── 2. Origin / Referer validation ────────────────────────────────────
         const origin  = req.headers.origin  || '';
         const referer = req.headers.referer || '';
-        const isAllowedOrigin  = !origin  || ALLOWED_ORIGINS.some(o => origin.startsWith(o));
-        const isAllowedReferer = !referer || ALLOWED_ORIGINS.some(o => referer.startsWith(o));
+        const isAllowedOrigin  = !origin  || ALLOWED_ORIGINS.some(o => origin.startsWith(o)) || origin.endsWith('.vercel.app');
+        const isAllowedReferer = !referer || ALLOWED_ORIGINS.some(o => referer.startsWith(o)) || referer.includes('.vercel.app');
         if (!isAllowedOrigin || !isAllowedReferer) {
             return res.status(403).json({ success: false, message: 'Forbidden.' });
         }

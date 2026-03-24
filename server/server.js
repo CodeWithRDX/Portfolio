@@ -21,10 +21,14 @@ const allowedOrigins = [
 app.use(cors({
     origin: (origin, callback) => {
         // Allow requests with no Origin header (e.g. same-origin, mobile apps)
-        if (!origin || allowedOrigins.some(o => origin.startsWith(o))) {
+        if (!origin || 
+            allowedOrigins.some(o => origin.startsWith(o)) || 
+            origin.endsWith('.vercel.app')) {
             callback(null, true);
         } else {
-            callback(new Error('Not allowed by CORS'));
+            // Do not throw an error, as it causes Express to return a 500 HTML page!
+            // Just return false to block the CORS request gracefully.
+            callback(null, false);
         }
     },
     methods: ['GET', 'POST'],
@@ -74,5 +78,14 @@ if (process.env.NODE_ENV !== 'production') {
         .then(() => console.log('✅ MongoDB connected (Serverless)'))
         .catch(err => console.error('❌ MongoDB connection error:', err.message));
 }
+
+// Global Express Error Handler (catches CORS, rate-limit, and JSON parse errors)
+app.use((err, req, res, next) => {
+    console.error('❌ Express Middleware Error:', err.message);
+    res.status(err.status || 500).json({ 
+        success: false, 
+        message: err.message || 'Internal Server Error' 
+    });
+});
 
 module.exports = app;
