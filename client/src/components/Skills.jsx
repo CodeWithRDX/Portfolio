@@ -24,13 +24,13 @@ const skillsData = [
         ]
     },
     {
-        category: 'Databases & Tools',
+        category: 'Databases & DevOps',
         items: [
-            { name: 'MySQL', level: 'Advanced', highlight: true },
-            { name: 'MongoDB', level: 'Advanced', highlight: true },
+            { name: 'MySQL & MongoDB', level: 'Advanced', highlight: true },
             { name: 'PostgreSQL', level: 'Intermediate', highlight: false },
-            { name: 'Git & GitHub', level: 'Advanced', highlight: true },
-            { name: 'VS Code / IntelliJ', level: 'Advanced', highlight: false }
+            { name: 'Docker & Containers', level: 'Intermediate', highlight: true },
+            { name: 'CI/CD & Git/GitHub', level: 'Advanced', highlight: true },
+            { name: 'AWS & Cloud Basics', level: 'Intermediate', highlight: false }
         ]
     },
     {

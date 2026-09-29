@@ -2,24 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Home Page -->
   <url>
-    <loc>https://raushan-ten.vercel.app/</loc>
-    <lastmod>2026-03-13</lastmod>
+    <loc>https://raushan.live/</loc>
+    <lastmod>2026-09-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   
   <!-- About Page -->
   <url>
-    <loc>https://raushan-ten.vercel.app/about</loc>
-    <lastmod>2026-03-13</lastmod>
+    <loc>https://raushan.live/about</loc>
+    <lastmod>2026-09-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <!-- Projects Page -->
   <url>
-    <loc>https://raushan-ten.vercel.app/projects</loc>
-    <lastmod>2026-03-13</lastmod>
+    <loc>https://raushan.live/projects</loc>
+    <lastmod>2026-09-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>

@@ -35,7 +35,7 @@ const educationData = [
 const skills = [
     'Java', 'C++', 'JavaScript', 'TypeScript', 'React', 'Node.js',
     'Express', 'MongoDB', 'MySQL', 'PostgreSQL', 'Redis',
-    'Tailwind CSS', 'Git & GitHub', 'Docker', 'AWS (Basics)'
+    'Tailwind CSS', 'Git & GitHub', 'Docker', 'DevOps & CI/CD', 'AWS (Basics)'
 ];
 
 const WhatIDo = [
