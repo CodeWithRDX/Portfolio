@@ -87,21 +87,22 @@ const AboutPage = () => {
         const fetchCodingStats = async () => {
              try {
                  const [lcRes, gfgRes] = await Promise.all([
-                     fetch('/proxy/lc/user/leetcode/codewithrdx/'),
-                     fetch('/proxy/gfg/codewithrdx?raw=true')
+                     fetch('/proxy/lc/user/leetcode/codewithrdx/').catch(() => null),
+                     fetch('/api/gfg/codewithrdx').catch(() => fetch('/proxy/gfg/codewithrdx?raw=true')).catch(() => null)
                  ]);
-                 const lcData = await lcRes.json();
-                 const gfgData = await gfgRes.json();
+                 const lcData = lcRes ? await lcRes.json().catch(() => ({})) : {};
+                 const gfgData = gfgRes ? await gfgRes.json().catch(() => ({})) : {};
                  
-                 const lcTotal = lcData?.data?.matchedUser?.submitStats?.acSubmissionNum?.find(s => s.difficulty === 'All')?.count || 250;
-                 const lcRating = Math.round(lcData?.data?.userContestRanking?.rating || 1500);
-                 const gfgTotal = gfgData?.total_problems_solved || 0;
-                 const gfgScore = gfgData?.total_score || 0;
+                 const lcTotal = lcData?.data?.matchedUser?.submitStats?.acSubmissionNum?.find(s => s.difficulty === 'All')?.count || 416;
+                 const lcRating = Math.round(lcData?.data?.userContestRanking?.rating || 1612);
+                 const calculatedGfgSolved = (gfgData?.School || 0) + (gfgData?.Basic || 12) + (gfgData?.Easy || 61) + (gfgData?.Medium || 142) + (gfgData?.Hard || 27);
+                 const gfgTotal = gfgData?.total_problems_solved || calculatedGfgSolved || 242;
+                 const gfgScore = gfgData?.total_score || 924;
                  
                  setCodingStats({ lcSolved: lcTotal, lcRating, gfgSolved: gfgTotal, gfgScore, loading: false });
              } catch(err) {
-                 console.error(err);
-                 setCodingStats(prev => ({ ...prev, loading: false }));
+                 console.error('Error fetching coding stats:', err);
+                 setCodingStats({ lcSolved: 416, lcRating: 1612, gfgSolved: 242, gfgScore: 924, loading: false });
              }
         };
         fetchCodingStats();

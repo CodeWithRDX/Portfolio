@@ -6,6 +6,7 @@ const rateLimit = require('express-rate-limit');
 require('dotenv').config();
 
 const contactRoutes = require('./routes/contactRoutes');
+const gfgRoutes = require('./routes/gfgRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -15,6 +16,7 @@ const allowedOrigins = [
     'http://localhost:5173',
     'http://localhost:3000',
     'http://localhost:5000',
+    'https://raushan.live',
     process.env.CLIENT_ORIGIN,
 ].filter(Boolean);
 
@@ -49,6 +51,8 @@ app.use(express.json({ limit: '10kb' })); // reject oversized payloads
 
 // API Routes
 app.use('/api/contact', contactRoutes);
+app.use('/api/gfg', gfgRoutes);
+app.use('/proxy/gfg', gfgRoutes);
 
 // ---------- Production: serve React static files ----------
 const clientBuildPath = path.join(__dirname, '..', 'client', 'dist');

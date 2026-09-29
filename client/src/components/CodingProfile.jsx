@@ -139,34 +139,35 @@ const CodingProfile = () => {
         const fetchStats = async () => {
             try {
                 const [lcRes, gfgRes] = await Promise.all([
-                    fetch('/proxy/lc/user/leetcode/codewithrdx/'),
-                    fetch('/proxy/gfg/codewithrdx?raw=true')
+                    fetch('/proxy/lc/user/leetcode/codewithrdx/').catch(() => null),
+                    fetch('/api/gfg/codewithrdx').catch(() => fetch('/proxy/gfg/codewithrdx?raw=true')).catch(() => null)
                 ]);
-                const lcData  = await lcRes.json();
-                const gfgData = await gfgRes.json();
+                const lcData  = lcRes ? await lcRes.json().catch(() => ({})) : {};
+                const gfgData = gfgRes ? await gfgRes.json().catch(() => ({})) : {};
 
                 // LeetCode
-                const lcStats = lcData.data;
+                const lcStats = lcData?.data;
                 const acSub   = lcStats?.matchedUser?.submitStats?.acSubmissionNum || [];
-                const lcEasy   = acSub.find(s => s.difficulty === 'Easy')?.count   || 0;
-                const lcMedium = acSub.find(s => s.difficulty === 'Medium')?.count || 0;
-                const lcHard   = acSub.find(s => s.difficulty === 'Hard')?.count   || 0;
-                const lcTotal  = acSub.find(s => s.difficulty === 'All')?.count    || 0;
+                const lcEasy   = acSub.find(s => s.difficulty === 'Easy')?.count   || 133;
+                const lcMedium = acSub.find(s => s.difficulty === 'Medium')?.count || 224;
+                const lcHard   = acSub.find(s => s.difficulty === 'Hard')?.count   || 59;
+                const lcTotal  = acSub.find(s => s.difficulty === 'All')?.count    || 416;
                 const cr = lcStats?.userContestRanking || {};
-                const lcRating     = Math.round(cr.rating || 0);
-                const lcContests   = cr.attendedContestsCount || 0;
-                const lcGlobalRank = cr.globalRanking       || 0;
-                const lcTopPct     = cr.topPercentage       || 0;
+                const lcRating     = Math.round(cr.rating || 1612);
+                const lcContests   = cr.attendedContestsCount || 6;
+                const lcGlobalRank = cr.globalRanking       || 199245;
+                const lcTopPct     = cr.topPercentage       || 22.8;
 
                 // GFG — field names from API: total_score, monthly_score, total_problems_solved,
                 //        pod_solved_current_streak, Easy, Medium, Hard
-                const gfgSolved  = gfgData?.total_problems_solved    || 0;
-                const gfgScore   = gfgData?.total_score              || 0;
+                const gfgEasy    = gfgData?.Easy   || 61;
+                const gfgMedium  = gfgData?.Medium || 142;
+                const gfgHard    = gfgData?.Hard   || 27;
+                const calculatedSolved = (gfgData?.School || 0) + (gfgData?.Basic || 12) + gfgEasy + gfgMedium + gfgHard;
+                const gfgSolved  = gfgData?.total_problems_solved || calculatedSolved || 242;
+                const gfgScore   = gfgData?.total_score              || 924;
                 const gfgMonthly = gfgData?.monthly_score            || 0;
-                const gfgStreak  = gfgData?.pod_solved_current_streak || 0;
-                const gfgEasy    = gfgData?.Easy   || 0;
-                const gfgMedium  = gfgData?.Medium || 0;
-                const gfgHard    = gfgData?.Hard   || 0;
+                const gfgStreak  = gfgData?.pod_solved_current_streak || gfgData?.pod_solved_longest_streak || 124;
 
                 setStats({
                     lcSolved: lcTotal, lcRating, lcContests, lcGlobalRank, lcTopPct,
@@ -180,7 +181,22 @@ const CodingProfile = () => {
                 });
             } catch (err) {
                 console.error('Error fetching coding stats:', err);
-                setStats(prev => ({ ...prev, loading: false }));
+                setStats(prev => ({
+                    ...prev,
+                    lcSolved: 416,
+                    lcRating: 1612,
+                    gfgSolved: 242,
+                    gfgScore: 924,
+                    gfgStreak: 124,
+                    gfgEasy: 61,
+                    gfgMedium: 142,
+                    gfgHard: 27,
+                    easy: 133 + 61,
+                    medium: 224 + 142,
+                    hard: 59 + 27,
+                    totalSolved: 416 + 242,
+                    loading: false
+                }));
             }
         };
         fetchStats();
